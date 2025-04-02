@@ -1,0 +1,94 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+# System.LoadAtlasFromFile: "Session_MH01_MH02_MH03_Stereo60_Pseudo"
+# System.SaveAtlasToFile: "Session_MH01_MH02_MH03_Stereo60_Pseudo"
+
+Camera.type: "PinHole"
+
+# Camera calibration and distortion parameters (OpenCV) 
+Camera1.fx: 381.0546264648438
+Camera1.fy: 380.6285705566406
+Camera1.cx: 316.6095581054688
+Camera1.cy: 248.536376953125
+
+Camera1.k1: -0.058237917721271515
+Camera1.k2: 0.0692759975790977
+Camera1.p1: 0.000362122984370217
+Camera1.p2: -0.000120137752674054
+
+# Camera resolution
+Camera.width: 640
+Camera.height: 480
+
+Camera.newWidth: 480
+Camera.newHeight: 360
+
+# Camera frames per second 
+Camera.fps: 60
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Transformation from camera to body-frame (imu)
+IMU.T_b_c1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [-3.5726853401287784e-03, 0.002429220708312, 0.999990667359556, 0.006233925003759,
+                  0.99997810503102, -0.005561383262505, 0.003586150411935, 0.016738335590475,
+                  0.005570042910958, 0.999981584781919, -0.002409298448147, -0.01309606233905,
+                  0.0, 0.0, 0.0, 1.0]
+
+# IMU noise
+# IMU.NoiseGyro: 1.7e-4 #1.6968e-04
+# IMU.NoiseAcc: 2.0000e-3 #2.0e-3
+# IMU.GyroWalk: 1.9393e-05 
+# IMU.AccWalk: 3.0000e-03 # 3e-03
+# IMU.Frequency: 200.0
+
+IMU.NoiseGyro: 5.6169965387912694e-05 # 1.6968e-04 
+IMU.NoiseAcc: 0.0013860267737474954 # 2.0000e-3
+IMU.GyroWalk: 5.541475128198737e-07
+IMU.AccWalk: 1.8138323678976462e-05 # 3.0000e-3
+IMU.Frequency: 400.0
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1000 # 1000
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 7
+# ORBextractor.iniThFAST: 10
+# ORBextractor.minThFAST: 3
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -3.5 # -1.8
+Viewer.ViewpointF: 500.0
+
