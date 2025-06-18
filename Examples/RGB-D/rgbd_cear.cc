@@ -70,6 +70,14 @@ int main(int argc, char **argv)
     cout << "Start processing sequence ..." << endl;
     cout << "Images in the sequence: " << nImages << endl << endl;
 
+    // string dir_save_immediately = string(argv[3]);
+    // if (!dir_save_immediately.empty() && dir_save_immediately.back() != '/')
+    //   dir_save_immediately += "/";
+    // string saving_pose_path_immediately = dir_save_immediately + "ORB-VIO3.txt";
+    // ofstream f;
+    // f.open(saving_pose_path_immediately);
+    // f << fixed;
+
     // Main loop
     cv::Mat imRGB, imD;
     for(int ni=0; ni<nImages; ni++)
@@ -105,6 +113,14 @@ int main(int argc, char **argv)
         // std::cout << "time: " << std::setprecision(17) << tframe << std::endl;
         SLAM.TrackRGBD(imRGB,imD,tframe);
 
+
+        // Save latest camera pose
+        // Sophus::SE3f Tcw = SLAM.TrackRGBD(imRGB,imD,tframe);
+        // Sophus::SE3f Twc = Tcw.inverse();
+        // Eigen::Vector3f twc = Twc.translation();
+        // Eigen::Quaternionf q = Twc.unit_quaternion();
+        // f << setprecision(6) << tframe << " " <<  setprecision(9) << twc(0) << " " << twc(1) << " " << twc(2) << " " << q.x() << " " << q.y() << " " << q.z() << " " << q.w() << endl;
+
 #ifdef COMPILEDWITHC14
         std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
 #else
@@ -125,6 +141,7 @@ int main(int argc, char **argv)
         if(ttrack<T)
             usleep((T-ttrack)*1e6);
     }
+    // f.close();
 
     // Stop all threads
     SLAM.Shutdown();
@@ -141,7 +158,11 @@ int main(int argc, char **argv)
     cout << "mean tracking time: " << totaltime/nImages << endl;
 
     // Save camera trajectory
-    SLAM.SaveTrajectoryTUM("ORB-SLAM3.txt");
+    string dir = string(argv[3]);
+    if (!dir.empty() && dir.back() != '/')
+      dir += "/";
+    string saving_pose_path = dir + "ORB-SLAM3.txt";
+    SLAM.SaveTrajectoryTUM(saving_pose_path);
     // SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");   
 
     return 0;

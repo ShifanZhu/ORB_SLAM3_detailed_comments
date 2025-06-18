@@ -258,7 +258,7 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
 
     //Initialize the Viewer thread and launch
     // 创建并开启显示线程
-    if(bUseViewer)
+    if(static_cast<int>(fsSettings["Viewer.UseViewer"]) != 0)
     //if(false) // TODO
     {
         mpViewer = new Viewer(this, mpFrameDrawer,mpMapDrawer,mpTracker,strSettingsFile,settings_);
